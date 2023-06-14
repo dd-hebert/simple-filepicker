@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simplefilepicker"
+version = "0.0.1"
+authors = [
+  { name="David Hebert", email="david@ddhebert.com" },
+]
+description = "Simple utilities to view directories and pick files from the terminal."
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.7"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Desktop Environment",
+  "Topic :: System :: Filesystems",
+  "Topic :: Terminals",
+  "Topic :: Utilities",
+]
+keywords = [
+  'filepicker',
+  'simple',
+  'picker',
+  'tree',
+  'console',
+  'interactive'
+]
+dependencies = [
+]
+
+[project.urls]
+"repository" = "https://github.com/dd-hebert/FilePicker"
+"bug tracker" = "https://github.com/dd-hebert/FilePicker/issues"
