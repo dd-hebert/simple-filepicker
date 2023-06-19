@@ -40,18 +40,33 @@ class FilePicker:
         None.
 
         """
-        self.file_list = []
         self.root = os.path.abspath(root)
         self.ext = file_ext
+        self.file_list = self._build_file_list()
 
-        self.file_list = [
+    def _build_file_list(self):
+        """
+        Build the list of files with the specified extension in the root directory.
+
+        Returns
+        -------
+        None.
+
+        """
+        print(f'Searching "{self.root}" for {self.ext} files...')
+        file_list = [
             (
                 os.path.relpath(path, self.root),
                 [file for file in files if os.path.splitext(file)[1].lower() == self.ext.lower()]
             )
             for path, subdirs, files in os.walk(self.root)]
 
-        self.file_list = [(folder, files) for folder, files in self.file_list if files]
+        file_list = [(folder, files) for folder, files in file_list if files]
+
+        if file_list == []:
+            return None
+
+        return file_list
 
     def pick_file(self):
         """
@@ -63,23 +78,24 @@ class FilePicker:
             Returns the path of the chosen file relative to the root directory.
 
         """
-        while True:
-            self._print_folders_in_root()
-            folder_choice = self._get_folder_choice()
+        if self.file_list:
+            while True:
+                self._print_folders_in_root()
+                folder_choice = self._get_folder_choice()
 
-            if folder_choice is None:
-                return None  # User wants to quit
+                if folder_choice is None:
+                    return None  # User wants to quit
 
-            folder_index, folder_name = folder_choice
-            self._print_files_in_folder(folder_index, folder_name)
-            file_choice = self._get_file_choice(folder_index, folder_name)
+                folder_index, folder_name = folder_choice
+                self._print_files_in_folder(folder_index, folder_name)
+                file_choice = self._get_file_choice(folder_index, folder_name)
 
-            if file_choice is None:
-                return None  # User wants to quit
-            elif file_choice == 'back':
-                continue  # Go back to folder selection
-            else:
-                return self._print_selection(folder_name, file_choice)
+                if file_choice is None:
+                    return None  # User wants to quit
+                elif file_choice == 'back':
+                    continue  # Go back to folder selection
+                else:
+                    return self._print_selection(folder_name, file_choice)
 
     def _print_folders_in_root(self):
         # Print list of folders in root directory
@@ -164,18 +180,19 @@ class FilePicker:
 
         """
         print(self.root)
-        for index, entry in enumerate(self.file_list):
-            if index < len(self.file_list) - 1:
-                print(f'├───{entry[0]}')
-                for i, file in enumerate(entry[1]):
-                    if i < len(entry[1]) - 1:
-                        print(f'│   ├───{file}\t')
-                    else:
-                        print(f'│   └───{file}\t')
-            else:
-                print(f'└───{entry[0]}')
-                for i, file in enumerate(entry[1]):
-                    if i < len(entry[1]) - 1:
-                        print(f'    ├───{file}\t')
-                    else:
-                        print(f'    └───{file}\t')
+        if self.file_list:
+            for index, entry in enumerate(self.file_list):
+                if index < len(self.file_list) - 1:
+                    print(f'├───{entry[0]}')
+                    for i, file in enumerate(entry[1]):
+                        if i < len(entry[1]) - 1:
+                            print(f'│   ├───{file}\t')
+                        else:
+                            print(f'│   └───{file}\t')
+                else:
+                    print(f'└───{entry[0]}')
+                    for i, file in enumerate(entry[1]):
+                        if i < len(entry[1]) - 1:
+                            print(f'    ├───{file}\t')
+                        else:
+                            print(f'    └───{file}\t')
