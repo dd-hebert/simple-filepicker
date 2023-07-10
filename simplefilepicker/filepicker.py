@@ -51,19 +51,22 @@ class FilePicker:
         Returns
         -------
         None.
-
         """
         print(f'Searching "{self.root}" for {self.ext} files...')
+
         file_list = [
             (
                 os.path.relpath(path, self.root),
-                [file for file in files if os.path.splitext(file)[1].lower() == self.ext.lower()]
+                [file for file in files
+                 if os.path.splitext(file)[1].lower() == self.ext.lower()]
             )
-            for path, subdirs, files in os.walk(self.root)]
+            for path, subdirs, files in os.walk(self.root)
+            if any(file.lower().endswith(self.ext.lower())
+                   for file in files)
+        ]
 
-        file_list = [(folder, files) for folder, files in file_list if files]
-
-        if file_list == []:
+        if not file_list:
+            print('No files found.')
             return None
 
         return file_list

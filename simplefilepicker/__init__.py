@@ -8,4 +8,4 @@ Created on Wed Jun 14 2023
 @author: David Hebert
 """
 __author__ = 'David Hebert'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
