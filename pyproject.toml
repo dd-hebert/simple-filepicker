@@ -34,5 +34,5 @@ dependencies = [
 ]
 
 [project.urls]
-"repository" = "https://github.com/dd-hebert/FilePicker"
-"bug tracker" = "https://github.com/dd-hebert/FilePicker/issues"
+"repository" = "https://github.com/dd-hebert/simple-filepicker"
+"bug tracker" = "https://github.com/dd-hebert/simple-filepicker/issues"
