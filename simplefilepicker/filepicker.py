@@ -18,7 +18,6 @@ class FilePicker:
 
     Attributes
     ----------
-    file_list : list
     file_list : list[tuple, ...]
         A list of tuples containing a subfolder name ``file_list[x][0]`` and
         a list of files in each subfolder ``file_list[x][1]``.
